@@ -119,7 +119,7 @@ export default function About() {
           transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         />
 
-   
+
 
         {/* ── Hero (dark) ── */}
         <section className="relative py-28 overflow-hidden z-10">
@@ -561,7 +561,7 @@ export default function About() {
         </div>
       </section>
 
-    
+
 
     </div>
   );

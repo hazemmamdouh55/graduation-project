@@ -25,6 +25,7 @@ import JobDetails from '../pages/TeacherPortal/JobDetails'
 import SurveyCompleted from '../pages/Home/home2/SurveyCompleted'
 import TeacherSurvey from '../pages/Home/home2/TeacherSurvey'
 import School from '../pages/SchoolProfile/school'
+import About from '../pages/Aboutus/about'
 export const router = createBrowserRouter([
     {
         path: "",
@@ -163,6 +164,15 @@ export const router = createBrowserRouter([
                 element:
 
                     <PrivacyPage></PrivacyPage>
+
+
+            },
+            {
+                index: true,
+                path: "about",
+                element:
+
+                    <About></About>
 
 
             },
