@@ -13,11 +13,11 @@ import { staggerContainer } from "../../component/shared/animations/stagger";
 
 export default function NotificationPage() {
   const { data, isLoading } = useNotifications();
-  const { mutate: markRead } = useMarkAsRead();
+  const { mutate: markRead }    = useMarkAsRead();
   const { mutate: deleteNotif } = useDeleteNotification();
 
-  const navigate = useNavigate();
-  const userRole = localStorage.getItem("userRole");
+  const navigate  = useNavigate();
+  const userRole  = localStorage.getItem("userRole");
 
   const [notifications, setNotifications] = useState([]);
 
