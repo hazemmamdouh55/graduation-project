@@ -16,30 +16,32 @@ export default function Profile() {
 
   if (userRole !== "teacher") return <Navigate to="/" replace />;
 
-  const handleSkip = () => {
-    navigate("/TeacherProfile");
-  };
+  const handleSkip = () => navigate("/TeacherProfile");
 
   const forms = [
-    <BasicInfoForm onNext={() => setStep(1)} />,
-    <ExperienceForm onNext={() => setStep(2)} onBack={() => setStep(0)} />,
-    <EducationForm onNext={() => setStep(3)} onBack={() => setStep(1)} />,
-    <CertificationForm onBack={() => setStep(2)} />,
+    <BasicInfoForm    onNext={() => setStep(1)}                        />,
+    <ExperienceForm   onNext={() => setStep(2)} onBack={() => setStep(0)} />,
+    <EducationForm    onNext={() => setStep(3)} onBack={() => setStep(1)} />,
+    <CertificationForm                          onBack={() => setStep(2)} />,
   ];
 
   return (
-    <div className="min-h-screen bg-[linear-gradient(135deg,#FAF5FF,#FFFFFF,#EFF6FF)]">
+    <div className="min-h-screen" style={{ background: 'var(--surface-page)' }}>
       <ProfileHeader />
+
       <div className="mt-10 max-w-2xl mx-auto px-4">
         <div className="flex justify-end mb-2">
           <button
             onClick={handleSkip}
-            className="text-sm text-slate-400 hover:text-slate-600 underline underline-offset-2 transition-colors"
+            className="text-sm underline underline-offset-2 transition-colors hover:opacity-70"
+            style={{ color: 'var(--text-muted)' }}
           >
             Skip for now →
           </button>
         </div>
+
         <ProfileStepper currentStep={step} />
+
         <div className="mt-6">
           <AnimatePresence mode="wait">
             <motion.div

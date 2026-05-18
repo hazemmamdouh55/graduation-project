@@ -3,20 +3,25 @@ import { TrendingUp } from "lucide-react";
 import { NavLink } from "react-router";
 
 export default function AnalyticsPage({ onBack }) {
-    const barRef = useRef(null);
+    const barRef   = useRef(null);
     const donutRef = useRef(null);
     const radarRef = useRef(null);
 
     useEffect(() => {
-        const loadChart = () => {
-            return new Promise((resolve) => {
-                if (window.Chart) return resolve();
-                const script = document.createElement("script");
-                script.src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js";
-                script.onload = resolve;
-                document.head.appendChild(script);
-            });
-        };
+        const loadChart = () => new Promise((resolve) => {
+            if (window.Chart) return resolve();
+            const script = document.createElement("script");
+            script.src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js";
+            script.onload = resolve;
+            document.head.appendChild(script);
+        });
+
+        /* read CSS vars to make charts respect dark mode */
+        const style   = getComputedStyle(document.documentElement);
+        const isDark  = document.documentElement.classList.contains("dark");
+        const gridCol = isDark ? "#1f2937" : "#f1f5f9";
+        const tickCol = isDark ? "#6b7280" : "#94a3b8";
+        const labelCol= isDark ? "#9ca3af" : "#94a3b8";
 
         loadChart().then(() => {
             const Chart = window.Chart;
@@ -26,10 +31,10 @@ export default function AnalyticsPage({ onBack }) {
                 barRef.current._chart = new Chart(barRef.current, {
                     type: "bar",
                     data: {
-                        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+                        labels: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug"],
                         datasets: [{
                             data: [60, 45, 70, 55, 80, 90, 110, 130],
-                            backgroundColor: ["#a5b4fc", "#a5b4fc", "#a5b4fc", "#a5b4fc", "#a5b4fc", "#6366f1", "#6366f1", "#6366f1"],
+                            backgroundColor: ["#a5b4fc","#a5b4fc","#a5b4fc","#a5b4fc","#a5b4fc","#6366f1","#6366f1","#6366f1"],
                             borderRadius: 8,
                             borderSkipped: false,
                         }],
@@ -39,8 +44,8 @@ export default function AnalyticsPage({ onBack }) {
                         maintainAspectRatio: false,
                         plugins: { legend: { display: false } },
                         scales: {
-                            x: { grid: { display: false }, ticks: { color: "#94a3b8", font: { size: 11 } } },
-                            y: { grid: { color: "#f1f5f9" }, ticks: { color: "#94a3b8", font: { size: 11 }, stepSize: 30 }, beginAtZero: true },
+                            x: { grid: { display: false }, ticks: { color: tickCol, font: { size: 11 } } },
+                            y: { grid: { color: gridCol }, ticks: { color: tickCol, font: { size: 11 }, stepSize: 30 }, beginAtZero: true },
                         },
                     },
                 });
@@ -48,17 +53,19 @@ export default function AnalyticsPage({ onBack }) {
 
             if (donutRef.current) {
                 if (donutRef.current._chart) donutRef.current._chart.destroy();
+                const donutBg = isDark ? "#1f2937" : "#f0f2f8";
                 donutRef.current._chart = new Chart(donutRef.current, {
                     type: "doughnut",
                     data: {
                         datasets: [{
                             data: [87, 13],
-                            backgroundColor: ["#6366f1", "#f0f2f8"],
+                            backgroundColor: ["#6366f1", donutBg],
                             borderWidth: 0,
                         }],
                     },
                     options: {
-                        responsive: false,
+                        responsive: true,
+                        maintainAspectRatio: true,
                         cutout: "75%",
                         plugins: { legend: { display: false }, tooltip: { enabled: false } },
                     },
@@ -70,7 +77,7 @@ export default function AnalyticsPage({ onBack }) {
                             const cy = (top + bottom) / 2;
                             ctx.save();
                             ctx.font = "bold 20px sans-serif";
-                            ctx.fillStyle = "#1e293b";
+                            ctx.fillStyle = isDark ? "#f1f0ff" : "#1e293b";
                             ctx.textAlign = "center";
                             ctx.textBaseline = "middle";
                             ctx.fillText("87%", cx, cy);
@@ -85,7 +92,7 @@ export default function AnalyticsPage({ onBack }) {
                 radarRef.current._chart = new Chart(radarRef.current, {
                     type: "radar",
                     data: {
-                        labels: ["Empathy", "Adapt.", "Integrity", "Leadership", "Creativity"],
+                        labels: ["Empathy","Adapt.","Integrity","Leadership","Creativity"],
                         datasets: [{
                             data: [85, 70, 90, 60, 75],
                             backgroundColor: "rgba(99,102,241,0.15)",
@@ -96,15 +103,15 @@ export default function AnalyticsPage({ onBack }) {
                         }],
                     },
                     options: {
-                        responsive: false,
+                        responsive: true,
+                        maintainAspectRatio: true,
                         plugins: { legend: { display: false } },
                         scales: {
                             r: {
-                                min: 0,
-                                max: 100,
+                                min: 0, max: 100,
                                 ticks: { display: false },
-                                grid: { color: "#e2e8f0" },
-                                pointLabels: { font: { size: 9 }, color: "#94a3b8" },
+                                grid: { color: gridCol },
+                                pointLabels: { font: { size: 9 }, color: labelCol },
                             },
                         },
                     },
@@ -119,30 +126,36 @@ export default function AnalyticsPage({ onBack }) {
         };
     }, []);
 
+    /* shared card style */
+    const card = {
+        background: 'var(--surface-card)',
+        border: '1px solid var(--border-default)',
+    };
+
     return (
-        <main className="p-8 bg-[#f0f2f8] min-h-screen">
+        <main className="p-4 sm:p-6 md:p-8 min-h-screen" style={{ background: 'var(--surface-page)' }}>
             <div className="max-w-4xl mx-auto">
 
-                <NavLink
-                    to="/"
-                    className="group flex items-center gap-1 text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] hover:text-indigo-600 transition-all mb-4 outline-none w-fit"
-                >
-                    <span className="group-hover:-translate-x-1 transition-transform inline-block">
-                        ←
-                    </span>
+                <NavLink to="/"
+                    className="group flex items-center gap-1 text-[10px] font-black uppercase tracking-[0.2em] hover:text-indigo-500 transition-all mb-4 outline-none w-fit"
+                    style={{ color: 'var(--text-muted)' }}>
+                    <span className="group-hover:-translate-x-1 transition-transform inline-block">←</span>
                     Back to Home
                 </NavLink>
 
-                <h1 className="text-2xl font-extrabold text-slate-800 tracking-tight">Analytics & Insights</h1>
-                <p className="text-slate-400 text-sm mt-1 mb-6 flex items-center gap-2 font-medium">
+                <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight" style={{ color: 'var(--text-primary)' }}>
+                    Analytics & Insights
+                </h1>
+                <p className="text-sm mt-1 mb-6 flex items-center gap-2 font-medium" style={{ color: 'var(--text-muted)' }}>
                     <TrendingUp size={14} className="text-purple-400" />
                     Track your recruitment performance and staff diversity
                 </p>
 
                 {/* Stats Row */}
-                <div className="grid grid-cols-3 gap-4 mb-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
 
-                    <div className="rounded-2xl p-5" style={{ background: "linear-gradient(135deg, #6366f1, #818cf8)" }}>
+                    {/* Purple branded card */}
+                    <div className="rounded-2xl p-5" style={{ background: "linear-gradient(135deg,#6366f1,#818cf8)" }}>
                         <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-3" style={{ background: "rgba(255,255,255,0.2)" }}>
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
                                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
@@ -155,51 +168,53 @@ export default function AnalyticsPage({ onBack }) {
                         <div className="text-xs mt-1 font-semibold" style={{ color: "rgba(255,255,255,0.8)" }}>↑ 12% this month</div>
                     </div>
 
-                    <div className="bg-white rounded-2xl p-5">
+                    <div className="rounded-2xl p-5" style={card}>
                         <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center mb-3">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2">
                                 <rect x="2" y="3" width="20" height="14" rx="2" />
                                 <path d="M8 21h8M12 17v4" />
                             </svg>
                         </div>
-                        <div className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Active Positions</div>
+                        <div className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: 'var(--text-muted)' }}>Active Positions</div>
                         <div className="text-3xl font-black text-indigo-500">12</div>
-                        <div className="text-xs mt-1 text-slate-400">5 closing soon</div>
+                        <div className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>5 closing soon</div>
                     </div>
 
-                    <div className="bg-white rounded-2xl p-5">
+                    <div className="rounded-2xl p-5" style={card}>
                         <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center mb-3">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2">
                                 <circle cx="12" cy="12" r="10" />
                                 <path d="M12 6v6l4 2" />
                             </svg>
                         </div>
-                        <div className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Avg. Time to Hire</div>
+                        <div className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: 'var(--text-muted)' }}>Avg. Time to Hire</div>
                         <div className="text-3xl font-black text-emerald-500">
-                            24 <span className="text-sm font-medium text-slate-400">days</span>
+                            24 <span className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>days</span>
                         </div>
-                        <div className="text-xs mt-1 text-slate-400">≈ -3 days vs last month</div>
+                        <div className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>≈ -3 days vs last month</div>
                     </div>
-
                 </div>
 
                 {/* Mid Row */}
-                <div className="grid grid-cols-2 gap-4 mb-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
 
-                    <div className="bg-white rounded-2xl p-5">
-                        <div className="text-sm font-bold text-slate-800 mb-1">Personality Diversity</div>
-                        <div className="text-xs text-slate-400 mb-4">Current teaching staff personality trait distribution</div>
-                        <div className="flex items-center gap-4">
-                            <canvas ref={radarRef} width={130} height={130} />
+                    {/* Radar */}
+                    <div className="rounded-2xl p-5" style={card}>
+                        <div className="text-sm font-bold mb-1" style={{ color: 'var(--text-primary)' }}>Personality Diversity</div>
+                        <div className="text-xs mb-4" style={{ color: 'var(--text-muted)' }}>Current teaching staff personality trait distribution</div>
+                        <div className="flex items-center gap-4 flex-wrap">
+                            <div className="flex-shrink-0 w-[130px] h-[130px]">
+                                <canvas ref={radarRef} />
+                            </div>
                             <div className="flex flex-col gap-2">
                                 {[
-                                    { color: "#6366f1", label: "Empathy" },
-                                    { color: "#f59e0b", label: "Adaptability" },
-                                    { color: "#10b981", label: "Integrity" },
-                                    { color: "#f472b6", label: "Leadership" },
-                                    { color: "#60a5fa", label: "Creativity" },
+                                    { color: "#6366f1", label: "Empathy"       },
+                                    { color: "#f59e0b", label: "Adaptability"  },
+                                    { color: "#10b981", label: "Integrity"     },
+                                    { color: "#f472b6", label: "Leadership"    },
+                                    { color: "#60a5fa", label: "Creativity"    },
                                 ].map((item) => (
-                                    <div key={item.label} className="flex items-center gap-2 text-xs text-slate-600 font-medium">
+                                    <div key={item.label} className="flex items-center gap-2 text-xs font-medium" style={{ color: 'var(--text-secondary)' }}>
                                         <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: item.color }} />
                                         {item.label}
                                     </div>
@@ -208,37 +223,39 @@ export default function AnalyticsPage({ onBack }) {
                         </div>
                     </div>
 
-                    <div className="bg-white rounded-2xl p-5">
-                        <div className="text-sm font-bold text-slate-800 mb-1">Overall Recruitment Efficiency</div>
-                        <div className="text-xs text-slate-400 mb-4">Performance score based on multiple metrics</div>
+                    {/* Donut */}
+                    <div className="rounded-2xl p-5" style={card}>
+                        <div className="text-sm font-bold mb-1" style={{ color: 'var(--text-primary)' }}>Overall Recruitment Efficiency</div>
+                        <div className="text-xs mb-4" style={{ color: 'var(--text-muted)' }}>Performance score based on multiple metrics</div>
                         <div className="flex justify-center mb-4">
-                            <canvas ref={donutRef} width={120} height={120} />
+                            <div className="w-[120px] h-[120px]">
+                                <canvas ref={donutRef} />
+                            </div>
                         </div>
                         <div className="grid grid-cols-3 gap-2 text-center">
                             <div>
                                 <div className="text-base font-black text-indigo-500">92%</div>
-                                <div className="text-[10px] text-slate-400 font-medium">Match Quality</div>
+                                <div className="text-[10px] font-medium" style={{ color: 'var(--text-muted)' }}>Match Quality</div>
                             </div>
                             <div>
                                 <div className="text-base font-black text-emerald-500">85%</div>
-                                <div className="text-[10px] text-slate-400 font-medium">Speed</div>
+                                <div className="text-[10px] font-medium" style={{ color: 'var(--text-muted)' }}>Speed</div>
                             </div>
                             <div>
                                 <div className="text-base font-black text-amber-500">84%</div>
-                                <div className="text-[10px] text-slate-400 font-medium">Retention</div>
+                                <div className="text-[10px] font-medium" style={{ color: 'var(--text-muted)' }}>Retention</div>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 {/* Bar Chart */}
-                <div className="bg-white rounded-2xl p-5">
-                    <div className="text-sm font-bold text-slate-800 mb-1">Applicant Volume Over Time</div>
-                    <div className="text-xs text-slate-400 mb-3">Monthly applicant trends for the past 8 months</div>
+                <div className="rounded-2xl p-5" style={card}>
+                    <div className="text-sm font-bold mb-1" style={{ color: 'var(--text-primary)' }}>Applicant Volume Over Time</div>
+                    <div className="text-xs mb-3" style={{ color: 'var(--text-muted)' }}>Monthly applicant trends for the past 8 months</div>
                     <div className="flex items-center gap-2 mb-4">
                         <span className="w-2.5 h-2.5 rounded-sm bg-indigo-500 inline-block" />
-                        <span className="text-xs text-slate-500 font-medium">Applicants</span>
+                        <span className="text-xs font-medium" style={{ color: 'var(--text-muted)' }}>Applicants</span>
                     </div>
                     <div className="relative w-full" style={{ height: 200 }}>
                         <canvas ref={barRef} />

@@ -7,7 +7,7 @@ export default function LogoutModal({ isOpen, onClose }) {
   const handleLogout = () => {
     localStorage.removeItem("userToken");
     localStorage.removeItem("userName");
-    localStorage.removeItem("userRole"); 
+    localStorage.removeItem("userRole");
     navigate("/login");
   };
 

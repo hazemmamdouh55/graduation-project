@@ -1,4 +1,8 @@
-import { useNotifications } from "./hooks/useNotification";
+import {
+  useNotifications,
+  useMarkAsRead,
+  useDeleteNotification,
+} from "./hooks/useNotification";
 import NotificationTabs from "../../component/notification/NotificationTabs";
 import NotificationList from "../../component/notification/NotificationList";
 import { useNavigate } from "react-router-dom";
@@ -9,36 +13,34 @@ import { staggerContainer } from "../../component/shared/animations/stagger";
 
 export default function NotificationPage() {
   const { data, isLoading } = useNotifications();
-  const navigate = useNavigate();
+  const { mutate: markRead } = useMarkAsRead();
+  const { mutate: deleteNotif } = useDeleteNotification();
 
+  const navigate = useNavigate();
   const userRole = localStorage.getItem("userRole");
 
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    if (data) {
-      setNotifications(data);
-    }
+    if (data) setNotifications(data);
   }, [data]);
 
-  if (isLoading) return <p className="text-center mt-10">Loading...</p>;
+  if (isLoading) return (
+    <p className="text-center mt-10" style={{ color: 'var(--text-muted)' }}>Loading...</p>
+  );
 
   const handleMarkAsRead = (id) => {
-    setNotifications((prev) =>
-      prev.map((n) =>
-        n.id === id ? { ...n, unread: false } : n
-      )
-    );
+    markRead(id);
+    setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, is_read: 1 } : n)));
   };
 
   const handleDelete = (id) => {
-    setNotifications((prev) =>
-      prev.filter((n) => n.id !== id)
-    );
+    deleteNotif(id);
+    setNotifications((prev) => prev.filter((n) => n.id !== id));
   };
 
   return (
-    <div className="min-h-screen py-10 bg-gradient-to-b from-[#FAF5FF] via-[#FFFFFF] to-[#EFF6FF]">
+    <div className="min-h-screen py-10" style={{ background: 'var(--surface-page)' }}>
       <div className="max-w-5xl mx-auto px-6">
 
         <motion.div
@@ -48,30 +50,23 @@ export default function NotificationPage() {
           animate="visible"
         >
           <div>
-            <h1 className="text-3xl font-semibold text-[#1E2939]">
+            <h1 className="text-3xl font-semibold" style={{ color: 'var(--text-primary)' }}>
               Notifications
             </h1>
-
-            <p className="text-[#4A5565] mt-1">
+            <p className="mt-1" style={{ color: 'var(--text-muted)' }}>
               Stay updated with your latest activity and messages
             </p>
           </div>
 
           <button
-            onClick={() =>
-              navigate(userRole === "teacher" ? "/TeacherPortal" : "/SchoolDashpord")
-            }
-            className="px-6 py-2 rounded-full border border-[#9810FA] text-[#9810FA] font-semibold hover:bg-[#F5E6FF] transition whitespace-nowrap"
+            onClick={() => navigate(userRole === "teacher" ? "/TeacherPortal" : "/SchoolDashpord")}
+            className="px-6 py-2 rounded-full border border-[#9810FA] text-[#9810FA] font-semibold hover:bg-[#9810FA]/10 transition whitespace-nowrap"
           >
             Back to Dashboard
           </button>
         </motion.div>
 
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-        >
+        <motion.div variants={staggerContainer} initial="hidden" animate="visible">
           <NotificationTabs notifications={notifications}>
             {(filtered) => (
               <NotificationList
@@ -82,7 +77,6 @@ export default function NotificationPage() {
             )}
           </NotificationTabs>
         </motion.div>
-
       </div>
     </div>
   );

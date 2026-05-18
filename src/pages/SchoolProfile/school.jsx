@@ -1,32 +1,18 @@
 import React, { useEffect } from "react";
 import {
-  ArrowLeft,
-  Building2,
-  MapPin,
-  Calendar,
-  Star,
-  Users,
-  GraduationCap,
-  BookOpen,
-  Target,
-  Heart,
-  CheckCircle2,
-  Award,
-  Mail,
-  Phone,
-  Globe,
-  Edit,
-  CheckCircle,
+  Building2, MapPin, Calendar, Star, Users, GraduationCap,
+  BookOpen, Target, Heart, CheckCircle2, Award, Mail,
+  Phone, Globe, Edit, CheckCircle,
 } from "lucide-react";
 
-
 function SchoolProfile() {
-    useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  useEffect(() => { window.scrollTo(0, 0); }, []);
+
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 pb-12">
+    <div className="min-h-screen font-sans pb-12" style={{ background: 'var(--surface-page)', color: 'var(--text-primary)' }}>
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+
+        {/* ── Hero Banner ── */}
         <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 shadow-sm">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
             <div className="bg-white p-4 rounded-2xl shadow-sm shrink-0">
@@ -39,269 +25,175 @@ function SchoolProfile() {
                   <CheckCircle className="w-5 h-5 text-white fill-white/20" />
                 </div>
               </div>
-              <p className="text-purple-100 text-lg">
-                Excellence in Education Since 1878
-              </p>
-
+              <p className="text-purple-100 text-lg">Excellence in Education Since 1878</p>
               <div className="flex flex-wrap items-center gap-4 text-sm text-purple-100 mt-2">
-                <div className="flex items-center gap-1.5">
-                  <MapPin className="w-4 h-4" />
-                  <span>Boston, MA</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <Building2 className="w-4 h-4" />
-                  <span>Public High School</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <Calendar className="w-4 h-4" />
-                  <span>Founded 1878</span>
-                </div>
+                <div className="flex items-center gap-1.5"><MapPin className="w-4 h-4" /><span>Boston, MA</span></div>
+                <div className="flex items-center gap-1.5"><Building2 className="w-4 h-4" /><span>Public High School</span></div>
+                <div className="flex items-center gap-1.5"><Calendar className="w-4 h-4" /><span>Founded 1878</span></div>
               </div>
-
               <div className="flex items-center gap-2 mt-3">
                 <div className="flex text-yellow-400">
-                  {[1, 2, 3, 4].map((star) => (
-                    <Star key={star} className="w-4 h-4 fill-current" />
-                  ))}
+                  {[1, 2, 3, 4].map((s) => <Star key={s} className="w-4 h-4 fill-current" />)}
                   <Star className="w-4 h-4 fill-current text-yellow-400/50" />
                 </div>
                 <span className="text-sm font-medium">4.8 (124 reviews)</span>
               </div>
             </div>
           </div>
-
-          <button className="flex items-center gap-2 px-5 py-2.5 bg-white text-purple-700 text-sm font-medium rounded-lg hover:bg-slate-50 transition-colors shrink-0">
-            <Edit className="w-4 h-4" />
-            Edit Profile
+          <button className="flex items-center gap-2 px-5 py-2.5 bg-white text-purple-700 text-sm font-medium rounded-lg hover:opacity-90 transition-colors shrink-0">
+            <Edit className="w-4 h-4" /> Edit Profile
           </button>
         </div>
 
+        {/* ── Stats Row ── */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8">
-          <div className="bg-white rounded-2xl p-6 flex flex-col items-center justify-center shadow-sm border border-slate-100">
-            <div className="bg-purple-100 p-3 rounded-xl mb-3">
-              <Users className="w-6 h-6 text-purple-600" />
+          {[
+            { icon: Users, iconBg: 'bg-purple-100', iconColor: 'text-purple-600', value: '1200', label: 'Students' },
+            { icon: GraduationCap, iconBg: 'bg-blue-100', iconColor: 'text-blue-600', value: '85', label: 'Teachers' },
+            { icon: BookOpen, iconBg: 'bg-pink-100', iconColor: 'text-pink-600', value: '22', label: 'Class Number' },
+          ].map((s, i) => (
+            <div key={i} className="rounded-2xl p-6 flex flex-col items-center justify-center"
+              style={{ background: 'var(--surface-card)', border: '1px solid var(--border-default)' }}>
+              <div className={`${s.iconBg} p-3 rounded-xl mb-3`}>
+                <s.icon className={`w-6 h-6 ${s.iconColor}`} />
+              </div>
+              <h3 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{s.value}</h3>
+              <p style={{ color: 'var(--text-muted)' }} className="text-sm">{s.label}</p>
             </div>
-            <h3 className="text-2xl font-bold text-slate-800">1200</h3>
-            <p className="text-slate-500 text-sm">Students</p>
-          </div>
-          <div className="bg-white rounded-2xl p-6 flex flex-col items-center justify-center shadow-sm border border-slate-100">
-            <div className="bg-blue-100 p-3 rounded-xl mb-3">
-              <GraduationCap className="w-6 h-6 text-blue-600" />
-            </div>
-            <h3 className="text-2xl font-bold text-slate-800">85</h3>
-            <p className="text-slate-500 text-sm">Teachers</p>
-          </div>
-          <div className="bg-white rounded-2xl p-6 flex flex-col items-center justify-center shadow-sm border border-slate-100">
-            <div className="bg-pink-100 p-3 rounded-xl mb-3">
-              <BookOpen className="w-6 h-6 text-pink-600" />
-            </div>
-            <h3 className="text-2xl font-bold text-slate-800">22</h3>
-            <p className="text-slate-500 text-sm">Class Number</p>
-          </div>
+          ))}
         </div>
 
+        {/* ── Main Grid ── */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
+
+          {/* Left Column */}
           <div className="lg:col-span-2 space-y-8">
-            <section className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-100">
+
+            {/* About */}
+            <section className="rounded-2xl p-6 md:p-8"
+              style={{ background: 'var(--surface-card)', border: '1px solid var(--border-default)' }}>
               <div className="flex items-center gap-3 mb-4">
                 <Building2 className="w-6 h-6 text-purple-600" />
-                <h2 className="text-xl font-bold text-slate-800">
-                  About Our School
-                </h2>
+                <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>About Our School</h2>
               </div>
-              <p className="text-slate-600 leading-relaxed">
-                Boston Latin Academy is a prestigious institution with over 100
-                years of academic excellence. We are committed to providing a
-                rigorous and supportive learning environment that prepares
-                students for success in college and beyond. Our dedicated
-                faculty and staff work together to inspire students to reach
-                their full potential.
+              <p className="leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                Boston Latin Academy is a prestigious institution with over 100 years of academic excellence.
+                We are committed to providing a rigorous and supportive learning environment that prepares
+                students for success in college and beyond.
               </p>
             </section>
 
-            <section className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-100">
+            {/* Mission */}
+            <section className="rounded-2xl p-6 md:p-8"
+              style={{ background: 'var(--surface-card)', border: '1px solid var(--border-default)' }}>
               <div className="flex items-center gap-3 mb-4">
                 <Target className="w-6 h-6 text-purple-600" />
-                <h2 className="text-xl font-bold text-slate-800">
-                  Our Mission
-                </h2>
+                <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>Our Mission</h2>
               </div>
-              <p className="text-slate-600 leading-relaxed">
-                To provide a challenging and supportive educational experience
-                that empowers all students to become critical thinkers,
-                effective communicators, and responsible global citizens.
+              <p className="leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                To provide a challenging and supportive educational experience that empowers all students
+                to become critical thinkers, effective communicators, and responsible global citizens.
               </p>
             </section>
 
-            <section className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-100">
+            {/* Core Values */}
+            <section className="rounded-2xl p-6 md:p-8"
+              style={{ background: 'var(--surface-card)', border: '1px solid var(--border-default)' }}>
               <div className="flex items-center gap-3 mb-6">
                 <Heart className="w-6 h-6 text-purple-600" />
-                <h2 className="text-xl font-bold text-slate-800">
-                  Core Values
-                </h2>
+                <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>Core Values</h2>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {[
-                  "Academic Excellence",
-                  "Character Development",
-                  "Community Engagement",
-                  "Innovation & Creativity",
-                  "Diversity & Inclusion",
-                  "Lifelong Learning",
-                ].map((value, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-slate-50/80 hover:bg-slate-50 rounded-xl p-4 flex items-center gap-3 border border-slate-100 transition-colors"
-                  >
+                {["Academic Excellence", "Character Development", "Community Engagement", "Innovation & Creativity", "Diversity & Inclusion", "Lifelong Learning"].map((value, idx) => (
+                  <div key={idx} className="rounded-xl p-4 flex items-center gap-3 transition-colors"
+                    style={{ background: 'var(--surface-muted)', border: '1px solid var(--border-default)' }}>
                     <CheckCircle2 className="w-5 h-5 text-purple-600 shrink-0" />
-                    <span className="text-slate-700 font-medium text-sm">
-                      {value}
-                    </span>
+                    <span className="font-medium text-sm" style={{ color: 'var(--text-secondary)' }}>{value}</span>
                   </div>
                 ))}
               </div>
             </section>
 
-            <section className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-100">
+            {/* Academic Programs */}
+            <section className="rounded-2xl p-6 md:p-8"
+              style={{ background: 'var(--surface-card)', border: '1px solid var(--border-default)' }}>
               <div className="flex items-center gap-3 mb-6">
                 <BookOpen className="w-6 h-6 text-purple-600" />
-                <h2 className="text-xl font-bold text-slate-800">
-                  Academic Programs
-                </h2>
+                <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>Academic Programs</h2>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
-                  {
-                    title: "Advanced Placement (AP)",
-                    desc: "20+ AP courses across all subjects",
-                  },
-                  {
-                    title: "STEM Program",
-                    desc: "Specialized science and technology curriculum",
-                  },
-                  {
-                    title: "Arts & Music",
-                    desc: "Award-winning arts and music programs",
-                  },
+                  { title: "Advanced Placement (AP)", desc: "20+ AP courses across all subjects" },
+                  { title: "STEM Program", desc: "Specialized science and technology curriculum" },
+                  { title: "Arts & Music", desc: "Award-winning arts and music programs" },
                   { title: "Athletics", desc: "15 varsity sports teams" },
-                  {
-                    title: "Community Service",
-                    desc: "Required service learning program",
-                  },
-                  {
-                    title: "College Counseling",
-                    desc: "Comprehensive college guidance",
-                  },
+                  { title: "Community Service", desc: "Required service learning program" },
+                  { title: "College Counseling", desc: "Comprehensive college guidance" },
                 ].map((prog, idx) => (
-                  <div
-                    key={idx}
-                    className="border border-slate-100 rounded-xl p-5 hover:border-purple-200 transition-colors"
-                  >
-                    <h3 className="font-semibold text-slate-800 mb-1">
-                      {prog.title}
-                    </h3>
-                    <p className="text-sm text-slate-500 leading-relaxed">
-                      {prog.desc}
-                    </p>
+                  <div key={idx} className="rounded-xl p-5 transition-colors"
+                    style={{ border: '1px solid var(--border-default)' }}>
+                    <h3 className="font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>{prog.title}</h3>
+                    <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>{prog.desc}</p>
                   </div>
                 ))}
               </div>
             </section>
 
-            <section className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-100">
+            {/* Achievements */}
+            <section className="rounded-2xl p-6 md:p-8"
+              style={{ background: 'var(--surface-card)', border: '1px solid var(--border-default)' }}>
               <div className="flex items-center gap-3 mb-6">
                 <Award className="w-6 h-6 text-purple-600" />
-                <h2 className="text-xl font-bold text-slate-800">
-                  Achievements & Recognition
-                </h2>
+                <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>Achievements & Recognition</h2>
               </div>
               <div className="space-y-4">
-                {[
-                  "Top 10 Public School in Massachusetts",
-                  "National Blue Ribbon School",
-                  "100% College Acceptance Rate",
-                  "State Championship Athletics",
-                  "Distinguished STEM Program",
-                ].map((achievement, idx) => (
+                {["Top 10 Public School in Massachusetts", "National Blue Ribbon School", "100% College Acceptance Rate", "State Championship Athletics", "Distinguished STEM Program"].map((a, idx) => (
                   <div key={idx} className="flex items-center gap-3">
                     <Award className="w-5 h-5 text-emerald-500 shrink-0" />
-                    <span className="text-slate-600 text-sm">
-                      {achievement}
-                    </span>
+                    <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>{a}</span>
                   </div>
                 ))}
               </div>
             </section>
           </div>
 
+          {/* Right Column */}
           <div className="space-y-8">
-            <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-100">
-              <h2 className="text-xl font-bold text-slate-800 mb-6">
-                Contact Information
-              </h2>
+
+            {/* Contact */}
+            <div className="rounded-2xl p-6 md:p-8"
+              style={{ background: 'var(--surface-card)', border: '1px solid var(--border-default)' }}>
+              <h2 className="text-xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>Contact Information</h2>
               <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <Mail className="w-5 h-5 text-purple-600 mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-xs text-slate-500 mb-0.5">Email</p>
-                    <a
-                      href="/"
-                      className="text-sm font-medium text-purple-700 hover:underline"
-                    >
-                      info@bostonlatinacademy.edu
-                    </a>
+                {[
+                  { icon: Mail, label: 'Email', value: 'info@bostonlatinacademy.edu', isLink: true },
+                  { icon: Phone, label: 'Phone', value: '(617) 555-0123', isLink: false },
+                  { icon: Globe, label: 'Page', value: 'www.bostonlatinacademy.edu', isLink: true },
+                  { icon: MapPin, label: 'Address', value: '205 Townsend Street, Boston, MA 02121', isLink: false },
+                ].map((c, i) => (
+                  <div key={i} className="flex items-start gap-4">
+                    <c.icon className="w-5 h-5 text-purple-600 mt-0.5 shrink-0" />
+                    <div>
+                      <p className="text-xs mb-0.5" style={{ color: 'var(--text-muted)' }}>{c.label}</p>
+                      {c.isLink
+                        ? <a href="/" className="text-sm font-medium text-purple-500 hover:underline">{c.value}</a>
+                        : <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{c.value}</p>
+                      }
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <Phone className="w-5 h-5 text-purple-600 mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-xs text-slate-500 mb-0.5">Phone</p>
-                    <p className="text-sm font-medium text-slate-800">
-                      (617) 555-0123
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <Globe className="w-5 h-5 text-purple-600 mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-xs text-slate-500 mb-0.5">Page</p>
-                    <a
-                      href="/"
-                      className="text-sm font-medium text-purple-700 hover:underline"
-                    >
-                      www.bostonlatinacademy.edu
-                    </a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <MapPin className="w-5 h-5 text-purple-600 mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-xs text-slate-500 mb-0.5">Address</p>
-                    <p className="text-sm font-medium text-slate-800 leading-relaxed">
-                      205 Townsend Street, Boston, MA 02121
-                    </p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
 
             {/* Facilities */}
-            <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-100">
-              <h2 className="text-xl font-bold text-slate-800 mb-6">
-                Facilities
-              </h2>
+            <div className="rounded-2xl p-6 md:p-8"
+              style={{ background: 'var(--surface-card)', border: '1px solid var(--border-default)' }}>
+              <h2 className="text-xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>Facilities</h2>
               <div className="space-y-4">
-                {[
-                  "Modern Science Labs",
-                  "Digital Learning Center",
-                  "Athletic Complex",
-                  "Performing Arts Theater",
-                  "Library & Media Center",
-                  "Cafeteria & Student Center",
-                ].map((facility, idx) => (
+                {["Modern Science Labs", "Digital Learning Center", "Athletic Complex", "Performing Arts Theater", "Library & Media Center", "Cafeteria & Student Center"].map((f, idx) => (
                   <div key={idx} className="flex items-center gap-3">
                     <CheckCircle className="w-4 h-4 text-emerald-500 shrink-0" />
-                    <span className="text-slate-600 text-sm">{facility}</span>
+                    <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>{f}</span>
                   </div>
                 ))}
               </div>

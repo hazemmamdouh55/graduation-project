@@ -18,21 +18,19 @@ export default function Postlisting({ isHome = true }) {
 
     const posts = data?.data?.data?.posts || [];
 
-    if (isLoading) {
-        return <LoaderPharaoh />;
-    }
+    if (isLoading) return <LoaderPharaoh />;
 
     if (isError) {
-        return <Alert color={"danger"} title={error.response?.data?.error || error.response?.data?.message || error.message} />;
+        return <Alert color="danger" title={error.response?.data?.error || error.response?.data?.message || error.message} />;
     }
 
     const finalPosts = posts || [];
 
     return (
-        <section className='py-12'>
-            <div className='w-full max-w-6xl mx-auto px-4 space-y-4'>
+        <section className="py-12">
+            <div className="w-full max-w-6xl mx-auto px-4 space-y-4">
                 {finalPosts.length === 0 ? (
-                    <p className="text-center text-yellow-200">no posts yet</p>
+                    <p className="text-center" style={{ color: 'var(--text-muted)' }}>No posts yet</p>
                 ) : (
                     finalPosts.map(post => <PostCard key={post._id} post={post} />)
                 )}
