@@ -182,34 +182,34 @@ function StepCard({ step, index, accent }) {
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const teacherSteps = [
-  { icon: UserPlus,      title: 'Create Account',       description: 'Sign up as a teacher and build your identity in minutes.',          color: 'from-purple-500 to-violet-600', detail: 'Fill in your details, choose your subjects, and set your availability. Your profile is the foundation of your perfect match.' },
-  { icon: ClipboardList, title: 'Complete Assessment',  description: 'Take our personality & competency assessment.',                      color: 'from-blue-500 to-cyan-600',     detail: "Our 'Journey of the Impactful Teacher' assessment reveals your unique teaching style, core values, and professional strengths." },
-  { icon: Star,          title: 'Get Matched',          description: 'Our AI finds your perfect school matches.',                          color: 'from-violet-500 to-purple-600', detail: 'Machine learning analyzes 50+ data points to surface schools whose culture, values, and needs align precisely with your profile.' },
-  { icon: Briefcase,     title: 'Apply to Jobs',        description: 'Browse curated recommendations tailored to you.',                    color: 'from-emerald-500 to-green-600', detail: 'Every job recommendation is scored for fit. Apply with one click and track status in your personalized dashboard.' },
-  { icon: Users,         title: 'Connect & Interview',  description: 'Chat directly and schedule interviews seamlessly.',                  color: 'from-indigo-500 to-blue-600',   detail: 'Integrated messaging and video scheduling means you go from matched to interviewed without leaving the platform.' },
-  { icon: MessageSquare, title: 'Get Hired',            description: 'Receive offers and start your journey at the perfect school.',       color: 'from-teal-500 to-emerald-600',  detail: 'Negotiate terms, review offers side-by-side, and accept with one click. Your dream school awaits.' },
+  { icon: UserPlus, title: 'Create Account', description: 'Sign up as a teacher and build your identity in minutes.', color: 'from-purple-500 to-violet-600', detail: 'Fill in your details, choose your subjects, and set your availability. Your profile is the foundation of your perfect match.' },
+  { icon: ClipboardList, title: 'Complete Assessment', description: 'Take our personality & competency assessment.', color: 'from-blue-500 to-cyan-600', detail: "Our 'Journey of the Impactful Teacher' assessment reveals your unique teaching style, core values, and professional strengths." },
+  { icon: Star, title: 'Get Matched', description: 'Our AI finds your perfect school matches.', color: 'from-violet-500 to-purple-600', detail: 'Machine learning analyzes 50+ data points to surface schools whose culture, values, and needs align precisely with your profile.' },
+  { icon: Briefcase, title: 'Apply to Jobs', description: 'Browse curated recommendations tailored to you.', color: 'from-emerald-500 to-green-600', detail: 'Every job recommendation is scored for fit. Apply with one click and track status in your personalized dashboard.' },
+  { icon: Users, title: 'Connect & Interview', description: 'Chat directly and schedule interviews seamlessly.', color: 'from-indigo-500 to-blue-600', detail: 'Integrated messaging and video scheduling means you go from matched to interviewed without leaving the platform.' },
+  { icon: MessageSquare, title: 'Get Hired', description: 'Receive offers and start your journey at the perfect school.', color: 'from-teal-500 to-emerald-600', detail: 'Negotiate terms, review offers side-by-side, and accept with one click. Your dream school awaits.' },
 ]
 
 const schoolSteps = [
-  { icon: School,        title: 'Register School',      description: "Create your school profile with culture & values.",                  color: 'from-blue-500 to-cyan-600',     detail: "Build a rich profile showcasing your school's ethos, curriculum style, and what makes your institution unique to top educators." },
-  { icon: ClipboardList, title: 'Define Requirements',  description: 'Post jobs and specify ideal personality traits.',                    color: 'from-purple-500 to-violet-600', detail: 'Go beyond qualifications. Define the personality archetype, teaching philosophy, and competencies that thrive in your environment.' },
-  { icon: Users,         title: 'Browse Candidates',    description: 'View pre-screened teachers ranked by fit.',                          color: 'from-violet-500 to-purple-600', detail: 'Every candidate is compatibility-scored. Filter by subject, experience, and personality type to find your ideal educator fast.' },
-  { icon: MessageCircle, title: 'Interview Top Matches',description: 'Connect with truly aligned candidates.',                             color: 'from-emerald-500 to-green-600', detail: 'Our platform surfaces only the top matches — reducing interview-to-hire ratios and dramatically improving hiring accuracy.' },
-  { icon: CheckCircle,   title: 'Hire with Confidence', description: 'Data-driven decisions backed by real insights.',                    color: 'from-indigo-500 to-blue-600',   detail: 'Detailed compatibility reports, assessment results, and behavioral insights give you full confidence before extending an offer.' },
-  { icon: Star,          title: 'Build Your Team',      description: 'Grow a team of educators who share your vision.',                   color: 'from-teal-500 to-emerald-600',  detail: 'Track team culture health over time. Our dashboard shows retention predictions and culture-fit trends across your whole staff.' },
+  { icon: School, title: 'Register School', description: "Create your school profile with culture & values.", color: 'from-blue-500 to-cyan-600', detail: "Build a rich profile showcasing your school's ethos, curriculum style, and what makes your institution unique to top educators." },
+  { icon: ClipboardList, title: 'Define Requirements', description: 'Post jobs and specify ideal personality traits.', color: 'from-purple-500 to-violet-600', detail: 'Go beyond qualifications. Define the personality archetype, teaching philosophy, and competencies that thrive in your environment.' },
+  { icon: Users, title: 'Browse Candidates', description: 'View pre-screened teachers ranked by fit.', color: 'from-violet-500 to-purple-600', detail: 'Every candidate is compatibility-scored. Filter by subject, experience, and personality type to find your ideal educator fast.' },
+  { icon: MessageCircle, title: 'Interview Top Matches', description: 'Connect with truly aligned candidates.', color: 'from-emerald-500 to-green-600', detail: 'Our platform surfaces only the top matches — reducing interview-to-hire ratios and dramatically improving hiring accuracy.' },
+  { icon: CheckCircle, title: 'Hire with Confidence', description: 'Data-driven decisions backed by real insights.', color: 'from-indigo-500 to-blue-600', detail: 'Detailed compatibility reports, assessment results, and behavioral insights give you full confidence before extending an offer.' },
+  { icon: Star, title: 'Build Your Team', description: 'Grow a team of educators who share your vision.', color: 'from-teal-500 to-emerald-600', detail: 'Track team culture health over time. Our dashboard shows retention predictions and culture-fit trends across your whole staff.' },
 ]
 
 const stats = [
-  { icon: Award,  label: 'Teachers Matched',  value: 10000, suffix: '+', delay: 0   },
-  { icon: Users,  label: 'Jobs Posted',        value: 25500, suffix: '+', delay: 150 },
-  { icon: Shield, label: 'Partner Schools',    value: 2900,  suffix: '+', delay: 300 },
-  { icon: Zap,    label: 'Placement Success',  value: 95,    suffix: '%', delay: 450 },
+  { icon: Award, label: 'Teachers Matched', value: 10000, suffix: '+', delay: 0 },
+  { icon: Users, label: 'Jobs Posted', value: 25500, suffix: '+', delay: 150 },
+  { icon: Shield, label: 'Partner Schools', value: 2900, suffix: '+', delay: 300 },
+  { icon: Zap, label: 'Placement Success', value: 95, suffix: '%', delay: 450 },
 ]
 
 const whyCards = [
-  { icon: Zap,    title: 'AI-Powered Matching',   desc: '50+ data points analyzed per match. Our algorithm gets smarter with every placement.',  color: 'from-yellow-400 to-orange-500', glow: 'rgba(251,191,36,.15)',  value: 10000, suffix: '+', label: 'Matches Made'    },
-  { icon: Target, title: 'Personality Profiling', desc: 'We match beyond qualifications — on values, teaching philosophy, and cultural fit.',      color: 'from-purple-500 to-violet-600', glow: 'rgba(147,51,234,.15)', value: 50,    suffix: '+', label: 'Match Signals'   },
-  { icon: Shield, title: 'Verified Network',      desc: 'Every school is vetted. Every teacher is verified. No fake listings, ever.',              color: 'from-emerald-500 to-teal-600',  glow: 'rgba(16,185,129,.15)', value: 3000,  suffix: '+', label: 'Partner Schools' },
+  { icon: Zap, title: 'AI-Powered Matching', desc: '50+ data points analyzed per match. Our algorithm gets smarter with every placement.', color: 'from-yellow-400 to-orange-500', glow: 'rgba(251,191,36,.15)', value: 10000, suffix: '+', label: 'Matches Made' },
+  { icon: Target, title: 'Personality Profiling', desc: 'We match beyond qualifications — on values, teaching philosophy, and cultural fit.', color: 'from-purple-500 to-violet-600', glow: 'rgba(147,51,234,.15)', value: 50, suffix: '+', label: 'Match Signals' },
+  { icon: Shield, title: 'Verified Network', desc: 'Every school is vetted. Every teacher is verified. No fake listings, ever.', color: 'from-emerald-500 to-teal-600', glow: 'rgba(16,185,129,.15)', value: 3000, suffix: '+', label: 'Partner Schools' },
 ]
 
 // ─── Main Component ───────────────────────────────────────────────────────────
@@ -410,8 +410,8 @@ export default function Welcome() {
               animate={{ backgroundPosition: ['0px 0px', '24px 24px'] }}
               transition={{ duration: 2, repeat: Infinity, ease: 'linear' }} />
             {[
-              { pos: 'top-8 left-8',    size: 'w-24 h-24', d: 0   },
-              { pos: 'bottom-8 right-8', size: 'w-32 h-32', d: 1   },
+              { pos: 'top-8 left-8', size: 'w-24 h-24', d: 0 },
+              { pos: 'bottom-8 right-8', size: 'w-32 h-32', d: 1 },
               { pos: 'top-1/2 right-16', size: 'w-16 h-16', d: 0.5 },
             ].map((o, i) => (
               <motion.div key={i} className={`absolute ${o.pos} ${o.size} bg-white/10 rounded-full blur-2xl`}
